@@ -1,0 +1,112 @@
+@import "tailwindcss";
+
+/* ---------------------------------------------------------------
+   Voyara design tokens
+   -----------------------------------------------------------------
+   These CSS variables are the single source of truth for colour
+   and type across the whole app. Change a value here and it
+   updates everywhere the matching Tailwind class is used
+   (e.g. bg-navy, text-gold, font-display).
+------------------------------------------------------------------- */
+:root {
+  /* Backgrounds, darkest to lightest */
+  --ink: #0a0d12; /* deepest background, used behind everything */
+  --navy: #10161f; /* primary page background */
+  --navy-soft: #1a2230; /* raised surface, used inside glass panels */
+
+  /* Accent */
+  --gold: #c9a868; /* champagne / gold accent */
+  --gold-bright: #e8d3a0; /* lighter gold, used on hover states */
+
+  /* Text */
+  --white-soft: #f2efe7; /* primary text on the dark background */
+  --white-muted: #98a0ad; /* secondary / caption text */
+
+  /* Glass surface */
+  --glass-surface: rgba(242, 239, 231, 0.04);
+  --glass-border: rgba(242, 239, 231, 0.09);
+}
+
+@theme inline {
+  --color-ink: var(--ink);
+  --color-navy: var(--navy);
+  --color-navy-soft: var(--navy-soft);
+  --color-gold: var(--gold);
+  --color-gold-bright: var(--gold-bright);
+  --color-white-soft: var(--white-soft);
+  --color-white-muted: var(--white-muted);
+
+  --font-display: var(--font-fraunces);
+  --font-sans: var(--font-inter);
+}
+
+html {
+  color-scheme: dark;
+  height: 100%;
+}
+
+body {
+  min-height: 100%;
+  position: relative;
+  background: var(--navy);
+  color: var(--white-soft);
+  font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+}
+
+/* ---------------------------------------------------------------
+   The horizon
+   -----------------------------------------------------------------
+   Voyara's signature backdrop: a soft gradient behind everything,
+   with a thin gold line and glow sitting low on the screen, like
+   a horizon at dusk seen from above. It lives once here on <body>,
+   so every route inherits the same cinematic atmosphere for free.
+   Both layers are fixed and purely decorative (pointer-events: none),
+   so they never interfere with scrolling or clicking.
+------------------------------------------------------------------- */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  background: radial-gradient(
+    ellipse at top,
+    var(--navy-soft) 0%,
+    var(--ink) 70%
+  );
+  pointer-events: none;
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 64%;
+  height: 1px;
+  z-index: -1;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--gold) 50%,
+    transparent 100%
+  );
+  opacity: 0.35;
+  box-shadow: 0 0 120px 40px rgba(201, 168, 104, 0.08);
+  pointer-events: none;
+}
+
+/* ---------------------------------------------------------------
+   Reusable glass-surface styling
+   -----------------------------------------------------------------
+   Applied anywhere a card, panel, or navigation bar needs to feel
+   like tinted glass floating above the backdrop above. Prefer the
+   <GlassPanel> component in components/GlassPanel.tsx when writing
+   JSX; this class is what it (and anything else) relies on.
+------------------------------------------------------------------- */
+.glass-panel {
+  background: var(--glass-surface);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: 1.25rem;
+}

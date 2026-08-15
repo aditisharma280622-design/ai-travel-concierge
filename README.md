@@ -5,12 +5,14 @@
 A premium, cinematic AI travel companion. Built for a hackathon by team
 **Ascendant Agents**.
 
-## Current status: Phase 0 — Foundation
+## Current status: Phase 1 — Landing page visual structure
 
-This is the very first phase of Voyara. It sets up the project and the
-visual design system, with three placeholder pages. None of the "smart"
-features (AI planning, maps, live data, etc.) exist yet — those are built
-in later phases, one at a time.
+Phase 0 set up the project and the design system. Phase 1 builds out the
+full visual structure of the landing page: layout, hierarchy, typography,
+and spacing for every section it will eventually need — using elegant
+static placeholders wherever an advanced feature (the live map, the 3D
+globe) will go later. `/plan` and `/itinerary` are still the Phase 0
+placeholders.
 
 ### What's here right now
 
@@ -19,17 +21,28 @@ in later phases, one at a time.
 - ESLint for catching mistakes in the code
 - Voyara's dark, cinematic design system: colours, fonts, and a reusable
   "glass panel" look, defined once in `app/globals.css`
+- A landing page (`/`) built from small, reusable sections:
+  - **Hero** — the Voyara wordmark and tagline
+  - **MapPlaceholder** — reserved, styled space for the future living
+    world map and map → globe transformation
+  - **ScrollQuote** — short travel lines, appearing as the page is
+    scrolled (no animation — they're just part of the normal page)
+  - **AboutVoyara** — a short explanation of what Voyara does
+  - **JourneyCTA** — the prominent "Start Planning Your Journey" call
+    to action, with a reserved area for the future travel-vehicle
+    transition into `/plan`
 - Three routes:
-  - `/` — landing page placeholder
+  - `/` — landing page
   - `/plan` — journey builder placeholder
   - `/itinerary` — itinerary placeholder
 
 ### What's *not* here yet (on purpose)
 
-Flight maps, the 3D globe, animations, the travel questionnaire, Claude
-and Grok integration, Supabase, external travel APIs, currency
-conversion, translation, the AI concierge, and weather/flight data all
-come in later phases.
+The 3D globe, the live/animated world map, real flight routes, scroll-
+triggered animation, the travel-vehicle transition, the travel
+questionnaire, Claude and Grok integration, Supabase, external travel
+APIs, currency conversion, translation, the AI concierge, and
+weather/flight data all come in later phases.
 
 ## Running it locally
 
@@ -60,13 +73,22 @@ Other useful commands:
 app/
   layout.tsx        Shared page frame: fonts, nav bar, footer
   globals.css        Design tokens (colours, fonts) and shared styles
-  page.tsx           Landing page ( / )
+  page.tsx           Landing page ( / ), composed from components/landing
   plan/page.tsx       Journey builder placeholder ( /plan )
   itinerary/page.tsx  Itinerary placeholder ( /itinerary )
 components/
   NavBar.tsx         Top navigation, shown on every page
   Footer.tsx         Bottom footer, shown on every page
   GlassPanel.tsx     Reusable "frosted glass" card used for content panels
+  landing/
+    Hero.tsx          Full-screen opening section: wordmark and tagline
+    MapPlaceholder.tsx Reserved space for the future world map / globe
+    ScrollQuote.tsx    Reusable single-quote section
+    AboutVoyara.tsx    "What Voyara does" section
+    JourneyCTA.tsx     Prominent call-to-action section
+lib/
+  landingContent.ts  Landing page copy (quotes, headings, body text),
+                      kept separate from layout so it's easy to edit
 ```
 
 ## Design system

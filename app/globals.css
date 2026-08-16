@@ -110,3 +110,87 @@ body::after {
   -webkit-backdrop-filter: blur(20px);
   border-radius: 1.25rem;
 }
+
+/* ---------------------------------------------------------------
+   World map cinematic reveal
+   -----------------------------------------------------------------
+   Used by components/landing/WorldMapScene.tsx and
+   WorldMapIllustration.tsx. The section adds an "is-revealed" class
+   once it scrolls into view (detected with IntersectionObserver, no
+   library); these rules define what changes when that happens. Each
+   piece transitions once, slowly, and stays put — no looping or
+   bouncing, in keeping with a restrained, cinematic feel.
+------------------------------------------------------------------- */
+
+/* The soft background glow and the landmass shapes fade in together. */
+.map-atmosphere,
+.map-landmass {
+  opacity: 0;
+  transition: opacity 1.6s ease;
+}
+.map-atmosphere.is-revealed,
+.map-landmass.is-revealed {
+  opacity: 1;
+}
+
+/* Destination points fade in and settle to full size, staggered per
+   point via an inline transition-delay set in WorldMapIllustration. */
+.map-node {
+  opacity: 0;
+  transform: scale(0.85);
+  transform-origin: center;
+  transition:
+    opacity 1s ease,
+    transform 1s ease;
+}
+.map-node.is-revealed {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Flight routes "draw" themselves using a stroke-dasharray long enough
+   to cover any route on the map; animating stroke-dashoffset to 0
+   reveals the line from start to end. */
+.map-route {
+  stroke-dasharray: 1400;
+  stroke-dashoffset: 1400;
+  transition: stroke-dashoffset 1.8s ease;
+}
+.map-route.is-revealed {
+  stroke-dashoffset: 0;
+}
+
+/* The soft glow duplicated behind each route line simply fades in. */
+.map-route-glow {
+  opacity: 0;
+  transition: opacity 1.8s ease;
+}
+.map-route-glow.is-revealed {
+  opacity: 1;
+}
+
+/* Supporting eyebrow/heading/body text fades and rises slightly. */
+.map-reveal {
+  opacity: 0;
+  transform: translateY(14px);
+  transition:
+    opacity 1.4s ease,
+    transform 1.4s ease;
+}
+.map-reveal.is-revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Respect reduced-motion preferences: everything above still appears
+   once the section is in view, but instantly, with no animation. */
+@media (prefers-reduced-motion: reduce) {
+  .map-atmosphere,
+  .map-landmass,
+  .map-node,
+  .map-route,
+  .map-route-glow,
+  .map-reveal {
+    transition: none !important;
+  }
+}

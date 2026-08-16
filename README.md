@@ -63,21 +63,5 @@ You'll need [Node.js](https://nodejs.org) installed (version 20 or
 newer is recommended).
 
 1. Install dependencies:
-```bash
+   ```bash
    npm install
-```
-2. Start the development server:
-```bash
-   npm run dev
-```
-3. Open [http://localhost:3000](http://localhost:3000) in your browser.
-
-The page updates automatically whenever a file is saved.
-
-Other useful commands:
-
-- `npm run build` — builds an optimized production version, to check
-  everything compiles correctly
-- `npm run lint` — checks the code for common mistakes and style issues
-
-## Project structure
